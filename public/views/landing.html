@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en" class="no-js">
+    <head>
+        <title id="landingTitle">Rough book | Free Secure Video Calls & Chat</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta
+            name="description"
+            content="Rough book is for simple, secure, fast video calls, chat, and screen sharing in your browser. No downloads or logins required."
+        />
+        <meta
+            name="keywords"
+            content="webrtc, self hosted, voip, sip, real-time communications, chat, messaging, meet, video meeting, video chat, video conference, peer to peer, p2p, rtc"
+        />
+
+        <meta property="og:type" content="{{OG_TYPE}}" />
+        <meta property="og:site_name" content="{{OG_SITE_NAME}}" />
+        <meta property="og:title" content="{{OG_TITLE}}" />
+        <meta property="og:description" content="{{OG_DESCRIPTION}}" />
+        <meta property="og:image" content="{{OG_IMAGE}}" />
+        <meta property="og:url" content="{{OG_URL}}" />
+
+        <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+        <link rel="stylesheet" href="../css/rough-book.css" />
+        <link rel="stylesheet" href="../css/newcall.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+        <script async src="../js/umami.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8"></script>
+        <script defer src="../js/widget.js"></script>
+    </head>
+
+    <body>
+        <div class="body-wrap">
+            <!-- <header class="site-header">
+                <div class="container">
+                    <div class="site-header-inner">
+                        <div class="brand">
+                            <h1 class="brand-title m-0">
+                                <a href="/">Rough book</a>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </header> -->
+            <main class="site-content">
+                <section class="hero section illustration-section-01">
+                    <div class="container">
+                        <div class="hero-inner section-inner">
+                            <div class="hero-ascii">
+                                <pre id="ascii-animation">
+░█████████                                   ░██           ░████████                         ░██          
+░██     ░██                                  ░██           ░██    ░██                        ░██          
+░██     ░██  ░███████  ░██    ░██  ░████████ ░████████     ░██    ░██   ░███████   ░███████  ░██    ░██   
+░█████████  ░██    ░██ ░██    ░██ ░██    ░██ ░██    ░██    ░████████   ░██    ░██ ░██    ░██ ░██   ░██    
+░██   ░██   ░██    ░██ ░██    ░██ ░██    ░██ ░██    ░██    ░██     ░██ ░██    ░██ ░██    ░██ ░███████     
+░██    ░██  ░██    ░██ ░██   ░███ ░██   ░███ ░██    ░██    ░██     ░██ ░██    ░██ ░██    ░██ ░██   ░██    
+░██     ░██  ░███████   ░█████░██  ░█████░██ ░██    ░██    ░█████████   ░███████   ░███████  ░██    ░██   
+                                         ░██                                                              
+                                   ░███████                                                                
+</pre
+                                >
+                                <!-- <h1 id="appTitle" class="mt-32 mb-16">
+                                    Rough book<br />
+                                    A blank page for your ideas.
+                                </h1> -->
+                                <p id="appDescription" class="mt-0 mb-32">
+                                    Start your next video call with a single click. No download, plug-in, or login is
+                                    required. Just share a link and start.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cta section center-content-mobile mb-32">
+                    <div class="container">
+                        <div class="cta-inner section-inner cta-split br-12">
+                            <div class="cta-slogan">
+                                <h3 id="appJoinDescription" class="m-0">
+                                    Pick a room name.<br />
+                                    How about this one?
+                                </h3>
+                            </div>
+                            <div class="cta-action">
+                                <div class="mb-0">
+                                    <label class="form-label screen-reader" for="roomName">Rough book room</label>
+                                    <div class="form-group-desktop">
+                                        <input
+                                            id="roomName"
+                                            class="form-input"
+                                            type="text"
+                                            value="rough-book"
+                                            maxlength="32"
+                                        />
+                                        <button
+                                            id="genRoomButton"
+                                            class="button button-primary br-6 mr-8 mb-8 fas fa-arrows-rotate"
+                                        ></button>
+                                        <button id="joinRoomButton" class="button button-primary br-6">
+                                            Join Room
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="lastRoomContainer" class="last-room">
+                                    <span id="appJoinLastRoom">Your recent room:</span>
+                                    <a id="lastRoom"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="features" class="features-tiles section center-content mt-32">
+                    <div class="container">
+                        <div class="features-tiles-inner section-inner has-top-divider">
+                            <div class="section-header">
+                                <div class="container-xs">
+                                    <h2 class="mt-0 mb-16">
+                                        Unlimited rooms without call time limitation
+                                    </h2>
+                                    <p class="m-0">
+                                        Rough book is built differently. We left behind slow servers, opting for
+                                        peer-to-peer calling for maximum video quality and the lowest latency.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="tiles-wrap">
+                                <div class="tiles-item">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <pre class="ascii-art">
+[&#95;] [&#95;] [&#95;]
+[       ]
+[&#95;] [&#95;] [&#95;]
+</pre
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Screen Sharing</h4>
+                                            <p class="m-0 text-sm">
+                                                Share your screen, application window, present your documents, slides
+                                                and more. Up to 8k resolution and speed up to 60fps.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <pre class="ascii-art">
+.-------.
+|  (o)  |
+|       |
+'-------'
+</pre
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">WebCam Streaming</h4>
+                                            <p class="m-0 text-sm">
+                                                Having the webcam on allows participants to make a deeper connection
+                                                with you. Up to 8k resolution and speed up to 60fps.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <pre class="ascii-art">
+.________.
+| [msg]  |
+|        |
+'--------'
+</pre
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Chat Room</h4>
+                                            <p class="m-0 text-sm">
+                                                Chat with others in the meeting, either public chat or private, save the
+                                                meeting messages. An integrated emoji picker to show your feeling.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <pre class="ascii-art">
+.-----.
+| (R) |
+'-----'
+  [ ]
+</pre
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Meeting Recording</h4>
+                                            <p class="m-0 text-sm">
+                                                Record your Screen, WebCam and Audio. Save it for use in the future or
+                                                to share with others.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <pre class="ascii-art">
+/------/
+/  /  /
+/------/
+  /
+</pre
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Interactive Whiteboard</h4>
+                                            <p class="m-0 text-sm">
+                                                Advanced collaborative whiteboard to draw and explain your concepts to
+                                                the other participants in the meeting.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <pre class="ascii-art">
+.-----.
+|     |-->
+'-----'
+</pre
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">File Sharing</h4>
+                                            <p class="m-0 text-sm">
+                                                Share any types of files to all participants in the meeting, in total
+                                                security, thanks to Datagram Transport Layer Security (DTLS).
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- <section id="browsers" class="team section center-content">
+                    <div class="container">
+                        <div class="team-inner section-inner has-top-divider">
+                            <div class="section-header center-content">
+                                <div class="container-xs">
+                                    <h2 class="mt-0 mb-16">Supported Browsers</h2>
+                                </div>
+                            </div>
+                            <div class="team-item-content">
+                                <h5 class="team-item-name mt-0 mb-4">
+                                    Chrome, Edge, Firefox, Opera, Safari, Brave and more.
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+
+                <!-- <section id="tryEasier" class="section">
+                    <div class="container">
+                        <div class="section-inner has-top-divider">
+                            <div class="container-xs">
+                                <div class="section-header center-content">
+                                    <h2 class="m-0">Try an easier, more secure way of calling.</h2>
+                                </div>
+                                <!-- <div class="center-content">
+                                    <a class="button button-custom button-wide-mobile br-6 pulse" href="/newcall"
+                                        >Try now</a
+                                    >
+                                </div> -->
+                            <!-- </div>
+                        </div>
+                    </div>
+                </section>  -->
+            </main>
+
+            <!-- <footer id="footer" class="site-footer center-content-mobile">
+                <div class="container">
+                    <div class="site-footer-inner">
+                        <div class="footer-bottom space-between text-xxs invert-order-desktop">
+                            <div class="footer-copyright">&copy; 2025 Rough book, all rights reserved</div>
+                        </div>
+                    </div>
+                </div>
+            </footer> -->
+        </div>
+        <script defer src="../js/utils.js"></script>
+        <script defer src="../js/common.js"></script>
+        </body>
+</html>

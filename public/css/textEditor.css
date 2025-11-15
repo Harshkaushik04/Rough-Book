@@ -1,0 +1,91 @@
+/*
+ * Replace your old text editor CSS with this new block.
+ * (This can be in css/textEditor.css or client.css)
+ */
+
+#textEditor {
+    display: none; /* HIDE BY DEFAULT */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    max-width: 1280px;
+    max-height: 720px;
+    background: var(--wb-bg);
+    border: 2px solid var(--elem-border-color);
+    border-radius: 10px;
+    z-index: 100;
+    flex-direction: column;
+}
+
+#textEditor.show {
+    display: flex; /* SHOW ONLY WHEN .show CLASS IS ADDED */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: none;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    border: none;
+}
+
+/* Header */
+#textEditorHeader {
+    background: var(--navbar-bg);
+    color: white;
+    padding: 10px;
+    cursor: move;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#textEditorHeader .textEditor-header-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1rem;
+}
+
+#textEditorHeader button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Main text area */
+#textEditor main {
+    flex-grow: 1;
+    padding: 5px;
+}
+
+#textEditorElement {
+    width: 100%;
+    height: 100%;
+    background: #fdfdfd;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    resize: none;
+    box-sizing: border-box; /* Important */
+}
+
+/* When Text Editor is open, sideline videos */
+#textEditor.show ~ #videoMediaContainer {
+    top: 0;
+    left: auto;
+    right: 0;
+    width: 20%; /* Sidelined videos width */
+    height: 100%;
+}

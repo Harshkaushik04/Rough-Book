@@ -25,17 +25,7 @@
 
 // Signaling server URL
 const signalingServer = getSignalingServer();
-const brand = {
-    app: {
-        name: 'Rough book',
-        url: 'https://roughbook.onrender.com',
-        og: {
-            title: 'Rough book',
-            description: 'A blank page for your ideas.',
-            image: '/images/logo.svg'
-        }
-    }
-};
+
 // This room
 const myRoomId = getId('myRoomId');
 const roomId = getRoomId();
@@ -5254,7 +5244,7 @@ function refreshMyAudioStatus(localAudioMediaStream) {
  */
 function manageButtons() {
     // Buttons bar
-    // setShareRoomBtn();
+    setShareRoomBtn();
     setRecordStreamBtn();
     setScreenShareBtn();
     setFullScreenBtn();
@@ -6113,38 +6103,25 @@ function handleTextEditorAction(config, logMe = true) {
  * File Transfer button click event
  */
 function setMyFileShareBtn() {
-    console.log('Function called: setMyFileShareBtn');
     // make send-receive file div draggable
     if (!isMobileDevice) {
         dragElement(sendFileDiv, imgShareSend);
         dragElement(receiveFileDiv, imgShareReceive);
     }
 
-    if (fileShareBtn) {
-        fileShareBtn.addEventListener('click', (e) => {
-            //window.open("https://fromsmash.com"); // for Big Data
-            selectFileToShare(myPeerId, true);
-        });
-    }
-    
-    if (sendAbortBtn) {
-        sendAbortBtn.addEventListener('click', (e) => {
-            abortFileTransfer();
-        });
-    }
-    
-    if (receiveAbortBtn) {
-        receiveAbortBtn.addEventListener('click', (e) => {
-            abortReceiveFileTransfer();
-        });
-    }
-    
-    // --- FIX 2: Safety check for receiveHideBtn ---
-    if (receiveHideBtn) {
-        receiveHideBtn.addEventListener('click', (e) => {
-            hideFileTransfer();
-        });
-    }
+    fileShareBtn.addEventListener('click', (e) => {
+        //window.open("https://fromsmash.com"); // for Big Data
+        selectFileToShare(myPeerId, true);
+    });
+    sendAbortBtn.addEventListener('click', (e) => {
+        abortFileTransfer();
+    });
+    receiveAbortBtn.addEventListener('click', (e) => {
+        abortReceiveFileTransfer();
+    });
+    receiveHideBtn.addEventListener('click', (e) => {
+        hideFileTransfer();
+    });
 }
 
 /**

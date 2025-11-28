@@ -1,3 +1,4 @@
 node_modules
 code2flow_venv/
 code2flow_venv
+.env

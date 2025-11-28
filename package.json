@@ -1,5 +1,5 @@
 {
-    "name": "mirotalk",
+    "name": "roughbook",
     "version": "1.6.26",
     "description": "A free WebRTC browser-based video call",
     "main": "server.js",
@@ -8,20 +8,20 @@
         "start-dev": "nodemon app/src/server.js",
         "test": "mocha tests/*.js",
         "lint": "npx prettier --write .",
-        "docker-build": "docker build --tag mirotalk/p2p:latest .",
+        "docker-build": "docker build --tag roughbook/p2p:latest .",
         "docker-rmi": "docker images |grep '<none>' |awk '{print $3}' |xargs docker rmi",
-        "docker-push": "docker push mirotalk/p2p:latest",
-        "docker-pull": "docker pull mirotalk/p2p:latest",
-        "docker-rmc": "docker container rm mirotalk --force",
-        "docker-run": "docker run -d -p 3000:3000 --name mirotalk mirotalk/p2p:latest",
-        "docker-rune": "docker run -d -p 3000:3000 -v .env:/src/.env:ro --name mirotalk mirotalk/p2p:latest",
-        "docker-run-vm": "docker run -d -p 3000:3000 -v .env:/src/.env:ro -v ./app/:/src/app/:ro -v ./public/:/src/public/:ro --name mirotalk mirotalk/p2p:latest",
-        "docker-start": "docker start mirotalk",
-        "docker-stop": "docker stop mirotalk"
+        "docker-push": "docker push roughbook/p2p:latest",
+        "docker-pull": "docker pull roughbook/p2p:latest",
+        "docker-rmc": "docker container rm roughbook --force",
+        "docker-run": "docker run -d -p 3000:3000 --name roughbook roughbook/p2p:latest",
+        "docker-rune": "docker run -d -p 3000:3000 -v .env:/src/.env:ro --name roughbook roughbook/p2p:latest",
+        "docker-run-vm": "docker run -d -p 3000:3000 -v .env:/src/.env:ro -v ./app/:/src/app/:ro -v ./public/:/src/public/:ro --name roughbook roughbook/p2p:latest",
+        "docker-start": "docker start roughbook",
+        "docker-stop": "docker stop roughbook"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/miroslavpejic85/mirotalk.git"
+        "url": "git+https://github.com/miroslavpejic85/roughbook.git"
     },
     "keywords": [
         "webrtc",
@@ -39,7 +39,7 @@
     ],
     "author": "Miroslav Pejic",
     "license": "AGPL-3.0",
-    "homepage": "https://github.com/miroslavpejic85/mirotalk",
+    "homepage": "https://github.com/miroslavpejic85/roughbook",
     "dependencies": {
         "@mattermost/client": "11.0.4",
         "@ngrok/ngrok": "1.5.2",
@@ -83,6 +83,6 @@
     },
     "type": "commonjs",
     "bugs": {
-        "url": "https://github.com/miroslavpejic85/mirotalk/issues"
+        "url": "https://github.com/miroslavpejic85/roughbook/issues"
     }
 }

@@ -51,11 +51,11 @@ dependencies: {
 
 'use strict'; // https://www.w3schools.com/js/js_strict.asp
 
+
 require('dotenv').config();
 
 const { auth, requiresAuth } = require('express-openid-connect');
 const { Server } = require('socket.io');
-const httpolyglot = require('httpolyglot');
 const compression = require('compression');
 const express = require('express');
 const cors = require('cors');
@@ -65,6 +65,10 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const app = express();
 const fs = require('fs');
+const http = require('http');              // <<<<<< NEW
+const server = http.createServer(app);     // <<<<<< NEW — replaces httpolyglot HTTPS server
+
+// Everything else kept the same
 const checkXSS = require('./xss.js');
 const ServerApi = require('./api');
 const MattermostController = require('./mattermost');
@@ -82,23 +86,13 @@ const nodemailer = require('./lib/nodemailer');
 
 const packageJson = require('../../package.json');
 
-const port = process.env.PORT || 3000; // must be the same to client.js signalingServerPort
+// IMPORTANT: Render will set process.env.PORT
+const port = process.env.PORT || 3000;
 const host = process.env.HOST || `http://localhost:${port}`;
 
-const authHost = new Host(); // Authenticated IP by Login
+const authHost = new Host();
 
-// Define paths to the SSL key and certificate files
-const keyPath = path.join(__dirname, '../ssl/key.pem');
-const certPath = path.join(__dirname, '../ssl/cert.pem');
-
-// Read SSL key and certificate files securely
-const options = {
-    key: fs.readFileSync(keyPath, 'utf-8'),
-    cert: fs.readFileSync(certPath, 'utf-8'),
-};
-
-// Server both http and https
-const server = httpolyglot.createServer(options, app);
+// Render does NOT support custom SSL → removed all cert loading
 
 // Trust Proxy
 const trustProxy = !!getEnvBoolean(process.env.TRUST_PROXY);
@@ -131,15 +125,12 @@ const corsOptions = {
     methods: corsMethods,
 };
 
-/*  
-    Set maxHttpBufferSize from 1e6 (1MB) to 1e7 (10MB)
-*/
-const io = new Server({
+/* Socket.IO server */
+const io = new Server(server, {            // <<<<<< UPDATED — attaches to HTTP server
     maxHttpBufferSize: 1e7,
     transports: ['websocket'],
     cors: corsOptions,
-}).listen(server);
-
+});
 // console.log(io);
 
 // Host protection (disabled by default)
@@ -1107,27 +1098,22 @@ async function ngrokStart() {
 /**
  * Start Local Server with ngrok https tunnel (optional)
  */
-server.listen(port, null, () => {
+server.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+
     log.debug(
         `%c
-
 	███████╗██╗ ██████╗ ███╗   ██╗      ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗ 
 	██╔════╝██║██╔════╝ ████╗  ██║      ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗
 	███████╗██║██║  ███╗██╔██╗ ██║█████╗███████╗█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝
 	╚════██║██║██║   ██║██║╚██╗██║╚════╝╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══╝  ██╔══██╗
 	███████║██║╚██████╔╝██║ ╚████║      ███████║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║
 	╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝      ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝ started...
-
 	`,
         'font-family:monospace'
     );
 
-    // https tunnel
-    if (ngrokEnabled) {
-        ngrokStart();
-    } else {
-        log.info('Server config', getServerConfig());
-    }
+    log.info('Server config', getServerConfig());
 });
 
 /**

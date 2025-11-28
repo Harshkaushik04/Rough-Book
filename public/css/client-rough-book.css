@@ -1,9 +1,6 @@
-/*
- * /css/client-rough-book.css
- * The new "Rough book" theme for the client.
- */
+/* /css/client-rough-book.css - CLEAN VERSION 0 ICONS */
 
-/* --- Base Theme (from rough-book.css) --- */
+/* --- Base Theme --- */
 :root {
     --rb-blue: #00bfff;
     --rb-dark-bg: #111;
@@ -11,233 +8,89 @@
     --rb-light-bg: #222;
     --rb-border: #333;
     --rb-text: #eee;
-    --rb-text-muted: #999;
 }
 
 body {
-    background-color: var(--rb-dark-bg);
-    color: var(--rb-text);
-    font-family: 'Courier New', Courier, monospace;
-    margin: 0;
-    line-height: 1.6;
-    overflow: hidden; /* Hide body scrollbars */
+    background-color: var(--rb-dark-bg) !important;
+    color: var(--rb-text) !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    overflow: hidden; 
 }
 
-a {
-    color: var(--rb-blue);
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
+a { color: var(--rb-blue) !important; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-/* --- ASCII Background Animation --- */
+/* --- ASCII Background --- */
 #ascii-background-animation {
-    position: fixed;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 300%; /* Make it tall for scrolling */
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    line-height: 1.2;
-    color: var(--rb-blue);
-    opacity: 0.1;
-    z-index: -1;
-    white-space: pre;
-    overflow: hidden;
-    user-select: none;
-    pointer-events: none;
+    position: fixed; top: -100%; left: 0; width: 100%; height: 300%;
+    font-family: 'Courier New', Courier, monospace; font-size: 16px;
+    line-height: 1.2; color: var(--rb-blue); opacity: 0.1; z-index: -1;
+    white-space: pre; overflow: hidden; user-select: none; pointer-events: none;
     animation: scroll-ascii 60s linear infinite;
 }
+@keyframes scroll-ascii { from { transform: translateY(0); } to { transform: translateY(50%); } }
 
-@keyframes scroll-ascii {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(50%);
-    }
-}
+/* --- UI Elements Coloring (NOT Icons) --- */
 
-/* --- Re-skin Client Elements --- */
-
-/* Loading Screen */
-#loadingDiv {
-    background: var(--rb-dark-bg);
-    color: var(--rb-text);
-    font-family: 'Courier New', Courier, monospace;
-}
-#loadingDiv h1 {
-    color: var(--rb-blue);
-    text-shadow: 0 0 5px var(--rb-blue);
-    animation: flicker 2s infinite alternate;
-}
-#loadingDiv img {
-    display: none; /* Hide old loading GIF */
-}
-#loadingDiv pre {
-    font-size: 1.2rem;
-    color: #ccc;
-}
-#loadingDiv::after {
-    content: '_';
-    font-size: 2rem;
-    color: var(--rb-text);
-    animation: blink 1s infinite;
-}
-
-@keyframes flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* Video Grid */
-#videoMediaContainer {
-    background: transparent; /* Show ASCII art behind videos */
-}
-
-.Camera, .Screen {
-    background: var(--rb-mid-bg);
-    border: 1px solid var(--rb-blue);
-    border-radius: 0;
-    box-shadow: 0 0 10px rgba(0,191,255,0.2);
-}
-
-/* Hide Avatars for the text theme */
-.videoAvatarImage, #myProfileAvatar, .msg-img, #recImage {
-    display: none !important; 
-}
-
-/* Video controls navbar */
-.navbar {
-    background: rgba(17, 17, 17, 0.7); /* Darker "glass" navbar */
-    backdrop-filter: blur(5px);
-    border-radius: 0;
-}
-.navbar button {
-    color: var(--rb-blue) !important;
-}
-.navbar button:hover {
-    background: var(--rb-blue);
-    color: var(--rb-dark-bg) !important;
-}
-
-/* Main Buttons */
+/* Buttons */
 #buttonsBar, #bottomButtons {
-    background: rgba(26, 26, 26, 0.8); /* "glass" background */
-    border: 1px solid var(--rb-border);
-    border-radius: 6px;
-    backdrop-filter: blur(10px);
-}
-#buttonsBar button, #bottomButtons button {
-    color: var(--rb-blue);
-    transition: all 0.2s ease;
-}
-#buttonsBar button:hover, #bottomButtons button:hover {
-    background: var(--rb-blue);
-    color: var(--rb-dark-bg);
-    text-shadow: none;
-}
-
-/* Pop-up Modals (Chat, Settings, Whiteboard, etc.) */
-#msger, #mySettings, #whiteboard, #textEditor, #caption,
-.swal2-popup {
-    font-family: 'Courier New', Courier, monospace !important;
-    background: rgba(26, 26, 26, 0.8) !important; /* "glass" background */
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--rb-blue) !important;
-    border-radius: 0 !important;
-    color: var(--rb-text) !important;
-    box-shadow: 0 0 15px rgba(0,191,255,0.3) !important;
-}
-
-/* Modal Headers */
-.msger-header, #mySettingsHeader, #whiteboardHeader, #textEditorHeader, #captionHeader,
-.swal2-header {
-    background: var(--rb-blue) !important;
-    color: var(--rb-dark-bg) !important;
-    border-bottom: 1px solid var(--rb-blue) !important;
-    border-radius: 0 !important;
-}
-.msger-header *, #mySettingsHeader *, #whiteboardHeader *, #textEditorHeader *, #captionHeader *,
-.swal2-header *, .swal2-title {
-    color: var(--rb-dark-bg) !important;
-}
-
-/* Inputs, TextAreas, Selects */
-input, textarea, select, .msger-input, #msgerInput, #textEditorElement,
-.swal2-input {
-    font-family: 'Courier New', Courier, monospace !important;
-    background: var(--rb-light-bg) !important;
+    background: rgba(26, 26, 26, 0.8) !important;
     border: 1px solid var(--rb-border) !important;
-    color: var(--rb-text) !important;
-    border-radius: 0 !important;
-}
-#textEditorElement {
-    background: var(--rb-light-bg) !important;
-    color: var(--rb-text) !important;
+    border-radius: 6px !important;
+    backdrop-filter: blur(10px);
 }
 
-/* Buttons inside modals */
-button, .button, .buttons, .swal2-confirm, .swal2-deny, .swal2-cancel {
-    font-family: 'Courier New', Courier, monospace !important;
-    background: #333 !important;
+/* Force standard FontAwesome icons to be visible and colored Cyan */
+button i, .fas, .far, .fab, .fa-solid {
     color: var(--rb-blue) !important;
+    background: transparent !important; /* Remove any background images */
+    -webkit-mask: none !important; /* Remove any masks */
+    mask: none !important;
+    font-family: "Font Awesome 6 Free" !important; /* Force Font Family */
+    font-weight: 900 !important;
+    content: normal !important; /* Allow pseudo-elements */
+}
+
+/* Specific Red Icons for "Off" states */
+.fa-microphone-slash, .fa-video-slash, .fa-phone-slash, .fa-stop-circle {
+    color: #ff4444 !important;
+}
+
+/* Button Hovers */
+button:hover i {
+    color: var(--rb-dark-bg) !important;
+}
+button:hover {
+    background-color: var(--rb-blue) !important;
+}
+
+/* Modals (Chat, Settings, etc) */
+#msger, #mySettings, #whiteboard, #textEditor, #caption, .swal2-popup {
+    background: #1a1a1a !important;
     border: 1px solid var(--rb-blue) !important;
-    border-radius: 0 !important;
-    transition: all 0.2s ease;
-}
-button:hover, .button:hover, .buttons:hover, .swal2-confirm:hover {
-    background: var(--rb-blue) !important;
-    color: var(--rb-dark-bg) !important;
-}
-
-/* Specifics for Settings/Tabs */
-.tab {
-    background: var(--rb-dark-bg) !important;
-}
-.tab button {
-    background: var(--rb-light-bg) !important;
-    border-color: var(--rb-border) !important;
-    color: var(--rb-text-muted) !important;
-}
-.tab button:hover, .tab button.active {
-    background: var(--rb-blue) !important;
-    color: var(--rb-dark-bg) !important;
-    border-color: var(--rb-blue) !important;
-}
-.tabcontent {
-    background: var(--rb-mid-bg) !important;
-}
-
-/* Chat Bubbles */
-.msg-bubble {
-    background: var(--rb-light-bg);
-    border-radius: 0;
-}
-.left-msg .msg-bubble {
-    border-left: 2px solid var(--rb-blue);
-}
-.right-msg .msg-bubble {
-    background: #333;
-    border-right: 2px solid var(--rb-blue);
-}
-.msg-info-name {
-    color: var(--rb-blue);
-}
-
-/* Misc */
-.form-select, .form-select:focus {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300bfff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
-}
-.videoPeerName {
     color: var(--rb-text) !important;
-    background: rgba(17, 17, 17, 0.7) !important;
-    backdrop-filter: blur(5px);
-    padding: 2px 8px;
+    border-radius: 0 !important;
+}
+
+/* Headers */
+.msger-header, #mySettingsHeader, #whiteboardHeader, #textEditorHeader, #captionHeader, .swal2-header {
+    background: var(--rb-blue) !important;
+    border-bottom: 1px solid var(--rb-blue) !important;
+}
+.msger-header *, #mySettingsHeader *, #whiteboardHeader *, #textEditorHeader *, #captionHeader *, .swal2-header * {
+    color: var(--rb-dark-bg) !important;
+}
+
+/* Inputs */
+input, textarea, select, .msger-input {
+    background: #222 !important;
+    border: 1px solid #444 !important;
+    color: #eee !important;
+    border-radius: 0 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Hide Branding Images */
+#icon, #appleTouchIcon, #myProfileAvatar, .msg-img, #recImage {
+    display: none !important;
 }
